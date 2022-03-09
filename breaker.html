@@ -279,7 +279,7 @@
         } // keyup()
         
         // touchDown
-        canvas.onmousedown = function touchDown(e) {
+        canvas.ontouchstart = function touchDown(e) {
             // 캔버스영역을 기준으로 한 마우스 클릭 좌표
             const x = event.clientX - context.canvas.offsetLeft;
             const y = event.clientY - context.canvas.offsetTop;
@@ -336,7 +336,7 @@
         } // touchDown()
 
         // touchUp
-        canvas.onmouseup = function touchUp(e) {
+        canvas.ontouchend = function touchUp(e) {
             // 캔버스영역을 기준으로 한 마우스 클릭 좌표
             const x = event.clientX - context.canvas.offsetLeft;
             const y = event.clientY - context.canvas.offsetTop;

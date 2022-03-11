@@ -278,11 +278,10 @@
             }
         } // keyup()
         
-        // touchDown
-        canvas.onmousedown = function touchDown(e) {
+        function touchDown (e) {
             // 캔버스영역을 기준으로 한 마우스 클릭 좌표
-            const x = event.clientX - context.canvas.offsetLeft;
-            const y = event.clientY - context.canvas.offsetTop;
+            const x = e.clientX - context.canvas.offsetLeft;
+            const y = e.clientY - context.canvas.offsetTop;
 
             // D 영역
             if (x > 10 && x < 80 && y > 720 && y < 760 && lock1 == false) {
@@ -333,20 +332,23 @@
                 be4 = true;
                 console.log("K");
             }
-        } // touchDown()
+        }
 
-        // touchUp
-        canvas.onmouseup = function touchUp(e) {
+        function touchUp (e) {
             // 캔버스영역을 기준으로 한 마우스 클릭 좌표
-            const x = event.clientX - context.canvas.offsetLeft;
-            const y = event.clientY - context.canvas.offsetTop;
+            const x = e.clientX - context.canvas.offsetLeft;
+            const y = e.clientY - context.canvas.offsetTop;
             if (x > 0 && x < 400 && y > 0 && y < 770) { // 캔버스 전 영역에서 마우스를 클릭을 떼면 버튼효과 false
                 be1 = false;
                 be2 = false;
                 be3 = false;
                 be4 = false;
             }
-        }// touchUp()
+        }
+
+
+        canvas.addEventListener("ontouchstart", touchDown);
+        canvas.addEventListener("ontouchend", touchUp);
         
         
         document.addEventListener("keydown", onButton);

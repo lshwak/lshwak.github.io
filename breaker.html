@@ -54,7 +54,53 @@
         } //startpanel
         startpanel();
 
-        
+        // 게임이 끝나고 점수를 보여주는 패널
+        function endpanel() {
+            context.fillStyle = 'rgba(0,0,0)';
+            context.fillRect(0,250,canvas.width,200);
+            context.font = '50px Arial';
+            context.fillStyle = '#00FF42';
+            context.textAlign= "center";
+            context.fillText("Game Over", 200, 340);
+            context.font = '30px Arial';
+            context.fillText("Score : "+score, 200, 390);
+        }// endpanel
+
+        // 소리효과
+        let dow = new Audio('sound/do.mp3');
+        let re = new Audio('sound/re.mp3');
+        let mi = new Audio('sound/mi.mp3');
+        let fa = new Audio('sound/fa.mp3');
+
+         // 터치 이벤트 핸들러
+         canvas.addEventListener('touchstart', function(event) {
+            const touchX = event.touches[0].clientX;
+            const touchY = event.touches[0].clientY;
+
+            // 터치된 위치에 따라 어떤 상자를 터치했는지 판별하고 해당 동작을 실행합니다.
+            if (touchX < 100 && touchY < 700) { // boxes1
+                if (boxes1.length > 0) {
+                    boxes1.shift();
+                    score += 1;
+                }
+            } else if (touchX >= 100 && touchX < 200 && touchY < 700) { // boxes2
+                if (boxes2.length > 0) {
+                    boxes2.shift();
+                    score += 1;
+                }
+            } else if (touchX >= 200 && touchX < 300 && touchY < 700) { // boxes3
+                if (boxes3.length > 0) {
+                    boxes3.shift();
+                    score += 1;
+                }
+            } else if (touchX >= 300 && touchY < 700) { // boxes4
+                if (boxes4.length > 0) {
+                    boxes4.shift();
+                    score += 1;
+                }
+            }
+        });
+
         function render() {
             context.clearRect(0, 0, canvas.width, canvas.height);
             context.fillStyle = 'rgba(255,0,0,0.05)';
@@ -192,7 +238,7 @@
                 endpanel();
             }
         } // render()
-    
+
         let tempX1, tempY1, tempX2, tempY2, tempX3, tempY3, tempX4, tempY4;
         function update() {
             
@@ -218,26 +264,8 @@
             }
         } // update()
 
-        // 게임이 끝나고 점수를 보여주는 패널
-        function endpanel() {
-            context.fillStyle = 'rgba(0,0,0)';
-            context.fillRect(0,250,canvas.width,200);
-            context.font = '50px Arial';
-            context.fillStyle = '#00FF42';
-            context.textAlign= "center";
-            context.fillText("Game Over", 200, 340);
-            context.font = '30px Arial';
-            context.fillText("Score : "+score, 200, 390);
-        }// endpanel
-
-        // 소리효과
-        let dow = new Audio('sound/do.mp3');
-        let re = new Audio('sound/re.mp3');
-        let mi = new Audio('sound/mi.mp3');
-        let fa = new Audio('sound/fa.mp3');
-
-        // keydown
-        function onButton(e) {
+         // keydown
+         function onButton(e) {
             // D (box에 lock이 풀렸을 때만 event 허용)
             if (e.keyCode == 68 && lock1==false) {
                 boxes1.shift();
@@ -292,8 +320,8 @@
 
         } // keydown()
 
-        // keyup
-        function keyUp(e) {
+       // keyup
+       function keyUp(e) {
             // D
             if (e.keyCode == 68) {
                 be1 = false // 버튼를 떼면 색이 다시 꺼지게끔 false
@@ -312,6 +340,7 @@
             }
         } // keyup()
         
+       
         
         document.addEventListener("keydown", onButton);
         document.addEventListener("keyup", keyUp);
